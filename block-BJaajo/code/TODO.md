@@ -4,10 +4,12 @@ Create the execution context diagram of the following code. Also write the outpu
 
 ```js
 console.log('First');
-setTimeout(() => console.log('Second'), 0);
+setTimeout(() => console.log('Second'), 0); web API : callback
 console.log('Third');
 ```
-
+first 
+third 
+second
 2.
 
 ```js
@@ -18,6 +20,9 @@ function secondCall() {
 setTimeout(secondCall, 2000); // execute this code after 1000 ms
 setTimeout(() => console.log('Third'), 0); // execute this code after 1000 ms
 console.log('Third');
+first 
+third
+
 ```
 
 3.
@@ -50,7 +55,7 @@ console.log('Fourth');
 function runWhileLoopForNSeconds(sec) {
   let start = Date.now(),
     now = start;
-  while (now - start < sec * 1000) {
+  while (now - start < sec * 1000) {l
     now = Date.now();
   }
 }
@@ -60,13 +65,17 @@ setTimeout(function exec() {
 }, 0);
 runWhileLoopForNSeconds(3);
 console.log('Third');
+first
+third 3000
+second 3001
 ```
 
 6. Convert the synchronous code given below into asynchronous. If you execute this code it will print one, two and three. Change the code in such a way that it should print `one`, `three` and `two`. You are not allowed to move the code up and down.
 
 ```js
+
 console.log('one');
-console.log('two');
+setTimeout(()=>{console.log('two')},1000);
 console.log('three');
 ```
 
@@ -74,15 +83,17 @@ console.log('three');
 
 ```js
 console.log('one');
-console.log('two');
+setTimeout(()=>{console.log('two')},1000);
 console.log('three');
 ```
 
 8. Write a function named `asyncForEach` that is similar to `forEach`. But `asyncForEach` is asynchronous in nature rather than synchronous.
 
 ```js
-funciton asyncForEach(){
-  //
+function asyncForEach(array,item){  
+  for(item =0 ; item< array.length;item++){
+    setTimeout(()=>{console.log(item++)},0);
+  }
 }
 //  Output of the function below should be
 // one
@@ -95,11 +106,19 @@ console.log('three');
 ```
 
 9. Convert the following function into asynchronous. The output of the function will be
-
+```js
+function async(array){
+  console.log('first');
+  for(let i =0 ;i <array.length;i++ ){
+    console.log(i);
+  }
+  console.log('last');
+}
+asynch([1,3,4])
 <!-- First Call -->
 <!-- 1, 2, 3, 4, 5 -->
 <!-- Last Call -->
-
+```
 Convert the code below in such way that the output should be the one below
 
 <!-- First Call -->
@@ -108,6 +127,6 @@ Convert the code below in such way that the output should be the one below
 
 ```js
 console.log('First Call');
-[1, 2, 3, 4, 5].firEach((num) => console.log(num));
+[1, 2, 3, 4, 5].forEach((num) => setTimeout(()=>{console.log(num)},0));
 console.log('Last Call');
 ```
