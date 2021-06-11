@@ -1,0 +1,36 @@
+let input = document.querySelector('input')
+
+
+function createUI(data){
+        
+        let photos = data.results.slice(0,10)
+        
+        photos.forEach((elm)=>{
+            let div = document.querySelector('.images')
+            let img = document.createElement('img')
+            img.src = elm.urls.small
+            div.append(img)
+        })
+        
+    
+    
+}
+
+
+function handleSearch (event){
+    if(event.keyCode === 13){        
+        xhr = new XMLHttpRequest()
+        xhr.open('GET', `https://api.unsplash.com/search/photos?client_id=upkPuk0bSo9v6dUNxsk20sZ2vflEmIRRBRzdDyE8hso&page=1&query=${event.target.value}`)
+        xhr.onload = function(){
+            let imgData = JSON.parse(xhr.response)            
+            createUI(imgData)
+        }
+        xhr.send()  
+        event.target.value = '';      
+    }
+
+}
+
+
+
+input.addEventListener('keydown', handleSearch)
